@@ -5,3 +5,5 @@ pillow
 streamlit
 dotenv
 pydantic
+beautifulsoup4
+python-slugify

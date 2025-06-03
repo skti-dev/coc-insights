@@ -8,7 +8,6 @@ from slugify import slugify
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain_core.agents import AgentFinish
-from langchain_core.runnables import RunnableSequence
 
 def get_news_data(return_slug_and_urls=True):
   '''Carrega os dados de notícias do Clash of Clans.'''
@@ -108,14 +107,19 @@ def get_all_news():
 
 news_prompt = ChatPromptTemplate.from_template(
   '''Você é um especialista em Clash of Clans com amplo conhecimento sobre as notícias do jogo.
-  Receberá uma pergunta do usuário sobre notícias do jogo e deve responder com informações precisas e atualizadas.
+
+  Receberá uma pergunta do usuário relacionada às notícias mais recentes e deverá responder com base nas informações disponíveis.
+
+  Instruções:
+  - Se a pergunta for sobre uma notícia específica, localize-a pelo título e forneça os principais detalhes.
+  - Se for sobre notícias em geral, liste todas as disponíveis de forma resumida.
+  - Caso não existam notícias, informe que não há atualizações recentes.
+  - Se os dados disponíveis não forem suficientes para responder à pergunta, deixe isso claro.
+
+  Responda apenas com informações objetivas e relevantes, sem explicações adicionais.
+
   Pergunta do usuário: {user_message}
-  Se a pergunta for sobre uma notícia específica, busque a notícia pelo título e forneça os detalhes relevantes.
-  Se a pergunta for sobre notícias em geral, forneça uma lista de todas as notícias disponíveis.
-  Se não houver notícias disponíveis, informe que não há notícias recentes.
-  Responda apenas com informações relevantes e precisas, sem explicações adicionais.
-  Se a pergunta não puder ser respondida com as informações disponíveis, informe que não há dados suficientes para responder.
-  '''
+'''
 )
 
 news_tools = [
@@ -148,4 +152,4 @@ format_prompt = ChatPromptTemplate.from_template(
 
 format_chain = format_prompt | chat
 
-news_chain = RunnableSequence(news_chain_raw, format_chain)
+news_chain = news_chain_raw.pipe(lambda x: {"raw_data": x}) | format_chain

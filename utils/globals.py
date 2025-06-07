@@ -51,7 +51,7 @@ def get_list_after_id(soup, section_id):
       return [li.get_text(" ", strip=True) for li in next_ul.find_all('li')]
   return []
 
-def extract_stats(url):
+def extract_stats(url, get_offensive_strategies=True):
   '''Extrai dados de uma página da Fandom do Clash of Clans, incluindo níveis, resumo e estratégias ofensivas.'''
   response = requests.get(url)
   soup = BeautifulSoup(response.content, 'html.parser')
@@ -59,21 +59,26 @@ def extract_stats(url):
   result = {
     'levels': [],
     'summary': [],
-    'offensive_strategies': []
   }
 
   result['levels'] = get_levels(soup, url)
 
   result['summary'] = get_list_after_id(soup, 'Summary')
+  
+  if get_offensive_strategies:
+    result['offensive_strategies'] = []
 
-  for sid in ['Offensive_Strategies', 'Offensive_Strategy', 'Strategy_and_Tips', 'Strategies_and_Tips', 'Offensive']:
-    result['offensive_strategies'] = get_list_after_id(soup, sid)
-    if result['offensive_strategies']:
-      break
+    for sid in ['Offensive_Strategies', 'Offensive_Strategy', 'Strategy_and_Tips', 'Strategies_and_Tips', 'Offensive']:
+      result['offensive_strategies'] = get_list_after_id(soup, sid)
+      if result['offensive_strategies']:
+        break
+  else:
+    result['number_of_buildings'] = 1 if 'Army_Camp' not in url else 4
+    
 
   return result
 
-def build_database(url_dict, output_filename='database.json'):
+def build_database(url_dict, output_filename='database.json', get_offensive_strategies=True):
   '''Recebe um dict {name: url} e gera um JSON com os dados extraídos de cada URL.'''
   
   os.makedirs('data', exist_ok=True)
@@ -81,13 +86,13 @@ def build_database(url_dict, output_filename='database.json'):
 
   database = {}
 
-  for defense_name, url in url_dict.items():
-    print(f'Extraindo dados de: {defense_name}')
-    defense_data = extract_stats(url)
-    if defense_data:
-      database[defense_name] = defense_data
+  for name, url in url_dict.items():
+    print(f'Extraindo dados de: {name}')
+    data = extract_stats(url=url, get_offensive_strategies=get_offensive_strategies)
+    if data:
+      database[name] = data
     else:
-      print(f'Falha ao extrair dados para {defense_name}')
+      print(f'Falha ao extrair dados para {name}')
 
   with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(database, f, indent=2, ensure_ascii=False)

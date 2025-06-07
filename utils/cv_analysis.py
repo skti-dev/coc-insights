@@ -6,8 +6,9 @@ import base64
 import json
 import sys
 import os
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from utils.summary_cache import summarize_with_cache
 
 def resize_image_to_base64(image_path: str, max_size: int = 512) -> str:
   with Image.open(image_path) as img:
@@ -56,14 +57,21 @@ def image_analysis(image_path: str):
   return data
 
 def map_portuguese_to_english(name_pt):
+  equivalent = {
+    "Archer Tower": [
+      "Torre de Arqueiras", "Arqueira", "Arqueiras"
+    ],
+    "Wizard Tower": [
+      "Torre do Mago", "Torre de Mago", "Torre de Magos", "Torre Mágica"
+    ],
+    "Air Defense": [
+      "Antiaérea", "Defesa Aérea"
+    ]
+  }
+
   mapping = {
     "Canhão": "Cannon",
-    "Torre de Arqueiras": "Archer Tower",
     "Morteiro": "Mortar",
-    "Antiaérea": "Air Defense",
-    "Defesa Aérea": "Air Defense",
-    "Torre do Mago": "Wizard Tower",
-    "Torre de Magos": "Wizard Tower",
     "Torre de Besta": "X-Bow",
     "Torre Inferno": "Inferno Tower",
     "Torre de Bombardeio": "Bomb Tower",
@@ -97,6 +105,11 @@ def map_portuguese_to_english(name_pt):
     "Armadilha Tornado": "Tornado Trap",
     "Bomba Giga": "Giga Bomb"
   }
+    
+  for en, pts in equivalent.items():
+    if name_pt in pts:
+      return en
+  
   return mapping.get(name_pt, None)
 
 def extract_defense_details(analysis, path_to_database):
@@ -124,11 +137,23 @@ def extract_defense_details(analysis, path_to_database):
     if not level_data:
       print(f"Nível '{nivel_str}' para defesa '{nome_pt}' não encontrado na base de dados.")
       continue
+    
+    strategies_raw = defesa_info.get("offensive_strategies", [])
+    summarized_strategies = ''
+    
+    if strategies_raw:
+      summarized_strategies = summarize_with_cache(strategies_raw) 
 
     output[nome_en] = {
-      **level_data,
-      "offensive_strategies": defesa_info.get("offensive_strategies", [])
+      "name_pt": nome_pt,
+      "level": nivel_str,
+      "Damage per Second": level_data.get("Damage per Second", "N/A"),
+      "Hitpoints": level_data.get("Hitpoints", "N/A"),
+      "offensive_strategies": summarized_strategies 
     }
+    
+  output["cv_level"] = analysis.get("cv_level", "desconhecido")
+  output["image_analysis"] = analysis.get("image_analysis", "Análise de imagem não disponível.")
 
   return output
 
@@ -140,53 +165,5 @@ def test_image_analysis():
   print('--' * 40)
   print(defenses)
 
-
 if __name__ == "__main__":
   test_image_analysis()
-
-# Exemplo de saída sem parse de JSON:
-# ```json
-# {
-#   "cv_level": "6",
-#   "defenses": [
-#     {"nome": "Canhão", "nível": "7"},
-#     {"nome": "Torre de Arqueiras", "nível": "6"},
-#     {"nome": "Morteiro", "nível": "4"},
-#     {"nome": "Antiaérea", "nível": "4"},
-#     {"nome": "Torre do Mago", "nível": "3"}
-#   ],
-#   "image_analysis": "A vila possui uma disposição centralizada com defesas distribuídas ao longo das paredes internas. As Torres de Arqueiras e Canhões estão posicionados para cobrir todo o perímetro. O Morteiro e a Antiaérea estão mais centralizados, protegendo o Centro de Vila e áreas adjacentes. A Torre do Mago também está perto do centro, reforçando a defesa aérea e terrestre."
-# }
-# ```
-
-# Exemplo de saída com parse de JSON:
-# {
-#   "cv_level": "6",
-#   "defenses": [
-#     {
-#       "nome": "Canhão",
-#       "nível": "7"
-#     },
-#     {
-#       "nome": "Torre de Arqueiras",
-#       "nível": "7"
-#     },
-#     {
-#       "nome": "Morteiro",
-#       "nível": "4"
-#     },
-#     {
-#       "nome": "Torre de Magos",    
-#       "nível": "3"
-#     },
-#     {
-#       "nome": "Defesa Aérea",
-#       "nível": "4"
-#     },
-#     {
-#       "nome": "Antiaérea",
-#       "nível": "2"
-#     }
-#   ],
-#   "image_analysis": "A vila tem um layout quadrado com o Centro de Vila no centro, cercado por artilharias como canhões e torres de arqueiras. As defesas estão bem distribuídas para cobertura aérea e terrestre, e o espaço é aproveitado com bom uso de muros para proteger o interior."
-# }

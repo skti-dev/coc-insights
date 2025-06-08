@@ -3,3 +3,4 @@ utils/__pycache__
 chains/__pycache__
 data/*.json
 data/*.jpg
+db/*

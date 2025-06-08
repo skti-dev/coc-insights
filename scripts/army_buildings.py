@@ -10,7 +10,12 @@ def get_army_buildings_urls():
     'army_camp': 'https://clashofclans.fandom.com/wiki/Army_Camp/Home_Village',
     'spell_factory': 'https://clashofclans.fandom.com/wiki/Spell_Factory',
     'barracks': 'https://clashofclans.fandom.com/wiki/Barracks',
-    'laboratory': 'https://clashofclans.fandom.com/wiki/Laboratory'
+    'laboratory': 'https://clashofclans.fandom.com/wiki/Laboratory',
+    'hero_hall': 'https://clashofclans.fandom.com/wiki/Hero_Hall',
+    'blacksmith': 'https://clashofclans.fandom.com/wiki/Blacksmith',
+    'workshop': 'https://clashofclans.fandom.com/wiki/Workshop',
+    'pet_house': 'https://clashofclans.fandom.com/wiki/Pet_House',
+    'dark_spell_factory': 'https://clashofclans.fandom.com/wiki/Dark_Spell_Factory'
   }
   return urls
 

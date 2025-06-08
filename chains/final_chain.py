@@ -2,12 +2,8 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from pydantic import BaseModel, Field
 from langchain_core.runnables import RunnablePassthrough
-from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_community.chat_message_histories import SQLChatMessageHistory
 from langchain_core.runnables import RunnableWithMessageHistory
-from chains.news import news_chain
-from chains.main_cv import main_cv_chain
-from chains.fallback import fallback_chain
-from chains.strategy import strategy_chain
 import sys
 import os
 
@@ -20,11 +16,14 @@ from chains.strategy import strategy_chain
 
 chat = ChatOpenAI(model='gpt-4o-mini', temperature=0)
 
-store = {}
+os.makedirs('db', exist_ok=True)
+sqlite_url = 'sqlite:///db/chat_history.db'
+
 def get_by_session_id(session_id):
-  if session_id not in store:
-    store[session_id] = InMemoryChatMessageHistory()
-  return store[session_id]
+  return SQLChatMessageHistory(
+    session_id=session_id,
+    connection_string=sqlite_url
+  )
 
 attack_strategy = 'estrategia de ataque'
 cv_info = 'informacoes do CV'

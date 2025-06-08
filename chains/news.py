@@ -143,13 +143,16 @@ format_prompt = ChatPromptTemplate.from_template(
   
   Dados crus: {raw_data}
   
-  Retorne a lista de notícias formatada, usando markdown, por exemplo:
-  #### Lista de notícias:
-  - Título 1 (data)
-  - Título 2 (data)
+  Retorne a resposta formatada, usando markdown para destacar títulos, datas e URLs. Se não houver dados disponíveis, informe que não há notícias recentes.
   '''
 )
 
 format_chain = format_prompt | news_chat
 
 news_chain = news_chain_raw.pipe(lambda x: {"raw_data": x}) | format_chain
+
+# Testing purpose
+if __name__ == "__main__":
+  test_input = {"user_message": "Quais são as últimas notícias do Clash of Clans?"}
+  response = news_chain.invoke(test_input)
+  print(response.content)

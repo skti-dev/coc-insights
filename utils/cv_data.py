@@ -49,7 +49,7 @@ def hash_cv_data(cv_data: dict) -> str:
   return hashlib.md5(joined.encode('utf-8')).hexdigest()
 
 def verify_if_user_mentioned_cv(user_message: str) -> str:
-  chat = ChatOpenAI(model='gpt-4o-mini', temperature=0)
+  cv_check_chat = ChatOpenAI(model='gpt-4o-mini', temperature=0)
   cv_check_prompt = ChatPromptTemplate.from_template(
     """
     Você é um especialista no jogo Clash of Clans e deve verificar se o usuário mencionou um Centro de Vila (CV) específico em sua mensagem.
@@ -64,7 +64,7 @@ def verify_if_user_mentioned_cv(user_message: str) -> str:
     {user_message}
     """
   )
-  cv_check_chain = cv_check_prompt | chat
+  cv_check_chain = cv_check_prompt | cv_check_chat
   
   response = cv_check_chain.invoke({"user_message": user_message}).content.strip().lower()
   return response

@@ -134,9 +134,9 @@ def news_tool_route(result):
 
   return news_tool_run[result.tool].run(result.tool_input)
 
-chat = ChatOpenAI(model='gpt-4o-mini', temperature=0)
+news_chat = ChatOpenAI(model='gpt-4o-mini', temperature=0)
 
-news_chain_raw = news_prompt | chat.bind(functions=news_tools_json) | OpenAIFunctionsAgentOutputParser() | news_tool_route
+news_chain_raw = news_prompt | news_chat.bind(functions=news_tools_json) | OpenAIFunctionsAgentOutputParser() | news_tool_route
 
 format_prompt = ChatPromptTemplate.from_template(
   '''Você é um assistente que recebe dados de notícias do Clash of Clans em formato bruto e deve formatar a resposta para o usuário de forma amigável e clara.
@@ -150,6 +150,6 @@ format_prompt = ChatPromptTemplate.from_template(
   '''
 )
 
-format_chain = format_prompt | chat
+format_chain = format_prompt | news_chat
 
 news_chain = news_chain_raw.pipe(lambda x: {"raw_data": x}) | format_chain

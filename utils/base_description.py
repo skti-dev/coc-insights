@@ -38,7 +38,7 @@ def image_analysis(image_path: str):
       "### Formato da resposta:\n"
       "Responda em JSON com os seguintes campos:\n"
       "- 'cv_level': string (ex: '5', '10', '15', ou 'desconhecido')\n"
-      "- 'defenses': lista de objetos com nome e nível aproximado, ex: [{\"nome\": \"Canhão\", \"nível\": \"6\"}]\n"
+      "- 'defenses': lista de objetos com nome e nível aproximado, ex: [{\"nome\": \"Canhão\", \"nível\": \"6\"}]\n, nível deve sempre ser uma string representantando um nível inteiro\n"
       "- 'image_analysis': breve descrição textual do layout da vila"
     )),
     HumanMessage(content=[
@@ -66,19 +66,25 @@ def map_portuguese_to_english(name_pt):
     ],
     "Air Defense": [
       "Antiaérea", "Defesa Aérea"
-    ]
+    ],
+    "X-Bow": [
+      "Torre de Besta", "Torre Besta", "Torre de Besta de Longo Alcance", "X-Besta"
+    ],
+    "Bomb Tower": [
+      "Torre de Bombardeio", "Torre Bombardeio", "Torre de Bombas"
+    ],
+    "Scattershot": [
+      "Disseminador", "Disseminadora", "Catapulta"
+    ],
   }
 
   mapping = {
     "Canhão": "Cannon",
     "Morteiro": "Mortar",
-    "Torre de Besta": "X-Bow",
     "Torre Inferno": "Inferno Tower",
-    "Torre de Bombardeio": "Bomb Tower",
     "Dispensador de Ar": "Air Sweeper",
     "Tesla Oculta": "Hidden Tesla",
     "Artilharia Águia": "Eagle Artillery",
-    "Disseminador": "Scattershot",
     "Cabana do Construtor": "Builder's Hut",
     "Torre de Feitiços": "Spell Tower",
     "Monólito": "Monolith",
@@ -165,5 +171,6 @@ def test_image_analysis():
   print('--' * 40)
   print(defenses)
 
+# Testing purpose
 if __name__ == "__main__":
   test_image_analysis()

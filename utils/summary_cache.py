@@ -4,14 +4,14 @@ import hashlib
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
-CACHE_FILE = 'data/summary_cache.json'
+SUMMARY_CACHE_FILE = 'data/summary_cache.json'
 summary_cache = {}
 
-def load_cache():
+def load_summary_cache():
   global summary_cache
-  if os.path.exists(CACHE_FILE):
+  if os.path.exists(SUMMARY_CACHE_FILE):
     try:
-      with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+      with open(SUMMARY_CACHE_FILE, 'r', encoding='utf-8') as f:
         summary_cache = json.load(f)
     except Exception as e:
       print(f"Erro ao carregar cache: {e}")
@@ -19,9 +19,9 @@ def load_cache():
   else:
     summary_cache = {}
 
-def save_cache():
+def save_summary_cache():
   try:
-    with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+    with open(SUMMARY_CACHE_FILE, 'w', encoding='utf-8') as f:
       json.dump(summary_cache, f, ensure_ascii=False, indent=2)
   except Exception as e:
     print(f"Erro ao salvar cache: {e}")
@@ -52,7 +52,7 @@ def summarize_with_cache(strategies: list[str]) -> str:
   joined_strategies = '\n-' + '\n-'.join(strategies)
   summary = summarize_chain.invoke({"strategies": joined_strategies}).content.strip()
   summary_cache[key] = summary
-  save_cache()
+  save_summary_cache()
   return summary
 
-load_cache()
+load_summary_cache()

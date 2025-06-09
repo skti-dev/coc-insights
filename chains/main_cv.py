@@ -25,10 +25,10 @@ main_cv_prompt = ChatPromptTemplate.from_template(
   {user_message}
 
   ### Instruções:
-  - Responda somente com informações que estejam presentes na base de dados fornecida.
-  - Caso não haja informações suficientes para responder à pergunta, diga claramente: **"Não há dados suficientes para responder."**
-  - Evite explicações genéricas ou especulações.
-  - Seja direto e preciso.
+  - Responda com base nas informações fornecidas.
+  - Caso os dados incluam níveis de tropas, heróis ou defesas, utilize essas informações para responder diretamente à pergunta.
+  - Caso realmente não haja dados relevantes ou suficientes, diga: **"Não há dados suficientes para responder."**
+  - Evite explicações genéricas ou especulações fora dos dados.
 
   ### Tradução:
   Se a pergunta do usuário estiver em português, **responda obrigatoriamente em português**, mesmo que os dados estejam em outro idioma. Traduza os termos técnicos se necessário.

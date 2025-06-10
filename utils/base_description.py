@@ -59,13 +59,13 @@ def image_analysis(image_path: str):
 def map_portuguese_to_english(name_pt):
   equivalent = {
     "Archer Tower": [
-      "Torre de Arqueiras", "Arqueira", "Arqueiras"
+      "Torre de Arqueiras", "Arqueira", "Arqueiras", "Torre Arqueira", "Torre de Arqueira"
     ],
     "Wizard Tower": [
-      "Torre do Mago", "Torre de Mago", "Torre de Magos", "Torre Mágica"
+      "Torre do Mago", "Torre de Mago", "Torre de Magos", "Torre Mágica", "Torres de Magos"
     ],
     "Air Defense": [
-      "Antiaérea", "Defesa Aérea"
+      "Antiaérea", "Defesa Aérea", "Artilharia Aérea", "Torre Antiaérea"
     ],
     "X-Bow": [
       "Torre de Besta", "Torre Besta", "Torre de Besta de Longo Alcance", "X-Besta"

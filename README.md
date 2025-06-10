@@ -5,6 +5,14 @@ Um assistente inteligente para jogadores de **Clash of Clans**, com conhecimento
 ---
 
 ## 📸 Demonstração
+![resposta_com_analise_de_imagem](https://github.com/user-attachments/assets/b7c13b7f-5382-40dd-a596-acc3114a867f)
+![resposta_sobre_a_vila](https://github.com/user-attachments/assets/fe47fc0f-ad57-4499-bcd7-a0f5d920ecd1)
+![resposta_ultimas_noticias](https://github.com/user-attachments/assets/bc905a09-5db0-4578-ad98-33c6e3cd3065)
+![resposta_pergunta_sem_relacao](https://github.com/user-attachments/assets/49461151-a41f-4f90-9a41-09d116d5fb0f)
+![tela_avisos_importantes](https://github.com/user-attachments/assets/0d4da962-5b7d-424c-a1e2-f3eb1a6aa1a3)
+![tela_referencias](https://github.com/user-attachments/assets/843c2e03-d9be-4fbc-97f5-225210a6d87c)
+![exemplo_db](https://github.com/user-attachments/assets/587bb1bf-2653-4588-969b-8d5cc3acfb57)
+![exemplo_langsmith](https://github.com/user-attachments/assets/1f986ddf-17e6-4231-a860-ac4ade84bf2c)
 
 ---
 

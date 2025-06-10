@@ -27,10 +27,10 @@ O diferencial do projeto está na combinação de:
 - **Persistência de histórico em SQLite**
 - **Interação via chat com streaming de resposta**
 - **Upload e análise de imagens com GPT-4o**
-* **Entender o contexto da pergunta do usuário**
-* **Filtrar dinamicamente as informações relevantes antes de gerar uma resposta**
-* **Analisar imagens enviadas pelo jogador para entender o tipo de vila ou disposição das defesas**
-* **Buscar notícias atualizadas na web, quando necessário, usando _tools_ integradas via LangChain**
+- **Entender o contexto da pergunta do usuário**
+- **Filtrar dinamicamente as informações relevantes antes de gerar uma resposta**
+- **Analisar imagens enviadas pelo jogador para entender o tipo de vila ou disposição das defesas**
+- **Buscar notícias atualizadas na web, quando necessário, usando _tools_ integradas via LangChain**
 
 ---
 
@@ -68,7 +68,7 @@ Esses diferenciais tornam o assistente não apenas uma ferramenta útil, mas tam
 | [OpenAI GPT-4o](https://openai.com/gpt-4o) | Modelo de linguagem multimodal usado para respostas e classificação |
 | [SQLite](https://sqlite.org)               | Banco de dados local para armazenamento do histórico                |
 | [Pillow](https://python-pillow.org)        | Manipulação de imagens (upload, leitura, salvamento)                |
-| Web Scraping                               | Coleta dos dados técnicos sobre o jogo diretamente da Wiki          |
+| Web Scraping                               | Coleta dos dados técnicos sobre o jogo diretamente da Wiki e site oficial          |
 | [LangSmith](https://smith.langchain.com/)  | Logs e entendimento detalhado dos processos das chains              |
 
 ---
@@ -110,7 +110,7 @@ python army.py
 python defenses.py
 
 # A aplicação já está pronta e pode ser iniciada pelo comando do streamlit
-streamlit run
+streamlit run Home.py
 ```
 
 ## 📎 Referências

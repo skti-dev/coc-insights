@@ -13,7 +13,7 @@ st.title("📚 Referências utilizadas")
 st.markdown("""
 Esta página contém a maioria das URLs utilizadas como base para os dados extraídos via web scraping relacionados ao Clash of Clans.
 
-**Atenção:** muitas das URLs utilizadas foram extraídas de tabelas dentro do site [Clash of Clans Wiki](https://clashofclans.fandom.com/wiki/Clash_of_Clans_Wiki) e por isso, não se encontram aqui.
+**Atenção:** muitas das URLs utilizadas foram extraídas de tabelas dentro do site [Clash of Clans Wiki](https://clashofclans.fandom.com/wiki/Clash_of_Clans_Wiki) de maneira programática e por isso, não se encontram aqui.
 
 ### 🏰 Vila Principal
 - [Tropas, Heróis, Feitiços, etc.](https://clashofclans.fandom.com/wiki/Army)

@@ -6,6 +6,15 @@ Um assistente inteligente para jogadores de **Clash of Clans**, com conhecimento
 
 ## 📸 Demonstração
 
+![resposta_com_analise_de_imagem](https://github.com/user-attachments/assets/b7c13b7f-5382-40dd-a596-acc3114a867f)
+![resposta_sobre_a_vila](https://github.com/user-attachments/assets/fe47fc0f-ad57-4499-bcd7-a0f5d920ecd1)
+![resposta_ultimas_noticias](https://github.com/user-attachments/assets/bc905a09-5db0-4578-ad98-33c6e3cd3065)
+![resposta_pergunta_sem_relacao](https://github.com/user-attachments/assets/49461151-a41f-4f90-9a41-09d116d5fb0f)
+![tela_avisos_importantes](https://github.com/user-attachments/assets/0d4da962-5b7d-424c-a1e2-f3eb1a6aa1a3)
+![tela_referencias](https://github.com/user-attachments/assets/843c2e03-d9be-4fbc-97f5-225210a6d87c)
+![exemplo_db](https://github.com/user-attachments/assets/587bb1bf-2653-4588-969b-8d5cc3acfb57)
+![exemplo_langsmith](https://github.com/user-attachments/assets/1f986ddf-17e6-4231-a860-ac4ade84bf2c)
+
 ---
 
 ## 🧠 Sobre o Projeto
@@ -19,11 +28,10 @@ O diferencial do projeto está na combinação de:
 - **Persistência de histórico em SQLite**
 - **Interação via chat com streaming de resposta**
 - **Upload e análise de imagens com GPT-4o**
-
-* **Entender o contexto da pergunta do usuário**
-* **Filtrar dinamicamente as informações relevantes antes de gerar uma resposta**
-* **Analisar imagens enviadas pelo jogador para entender o tipo de vila ou disposição das defesas**
-* **Buscar notícias atualizadas na web, quando necessário, usando _tools_ integradas via LangChain**
+- **Entender o contexto da pergunta do usuário**
+- **Filtrar dinamicamente as informações relevantes antes de gerar uma resposta**
+- **Analisar imagens enviadas pelo jogador para entender o tipo de vila ou disposição das defesas**
+- **Buscar notícias atualizadas na web, quando necessário, usando _tools_ integradas via LangChain**
 
 ---
 
@@ -54,15 +62,15 @@ Esses diferenciais tornam o assistente não apenas uma ferramenta útil, mas tam
 
 ## 🛠️ Tecnologias Utilizadas
 
-| Tecnologia                                 | Descrição                                                           |
-| ------------------------------------------ | ------------------------------------------------------------------- |
-| [Streamlit](https://streamlit.io)          | Interface web interativa, leve e rápida                             |
-| [LangChain](https://www.langchain.com)     | Framework de orquestração para LLMs                                 |
-| [OpenAI GPT-4o](https://openai.com/gpt-4o) | Modelo de linguagem multimodal usado para respostas e classificação |
-| [SQLite](https://sqlite.org)               | Banco de dados local para armazenamento do histórico                |
-| [Pillow](https://python-pillow.org)        | Manipulação de imagens (upload, leitura, salvamento)                |
-| Web Scraping (Fandom)                      | Coleta dos dados técnicos sobre o jogo diretamente da Wiki          |
-| [LangSmith](https://smith.langchain.com/)  | Logs e entendimento detalhado dos processos das chains              |
+| Tecnologia                                 | Descrição                                                                 |
+| ------------------------------------------ | ------------------------------------------------------------------------- |
+| [Streamlit](https://streamlit.io)          | Interface web interativa, leve e rápida                                   |
+| [LangChain](https://www.langchain.com)     | Framework de orquestração para LLMs                                       |
+| [OpenAI GPT-4o](https://openai.com/gpt-4o) | Modelo de linguagem multimodal usado para respostas e classificação       |
+| [SQLite](https://sqlite.org)               | Banco de dados local para armazenamento do histórico                      |
+| [Pillow](https://python-pillow.org)        | Manipulação de imagens (upload, leitura, salvamento)                      |
+| Web Scraping                               | Coleta dos dados técnicos sobre o jogo diretamente da Wiki e site oficial |
+| [LangSmith](https://smith.langchain.com/)  | Logs e entendimento detalhado dos processos das chains                    |
 
 ---
 

@@ -103,7 +103,7 @@ python army.py
 python defenses.py
 
 # A aplicação já está pronta e pode ser iniciada pelo comando do streamlit
-streamlit run
+streamlit run .\Home.py
 ```
 
 ## 📎 Referências

@@ -154,8 +154,37 @@ def proccess_army_data(army_data, buildings_data, cv_level):
 
   return result
 
+def calculate_total_army_capacity(buildings_data, cv_level):
+  """Calcula a capacidade total de tropas baseada nos army_camps disponíveis"""
+  if "army_camp" not in buildings_data:
+    return 0
+    
+  nivel = get_max_level(buildings_data["army_camp"].get("levels", []), cv_level)
+  if not nivel:
+    return 0
+    
+  troop_capacity = int(nivel.get(TC, 0))
+  number_of_camps = int(buildings_data["army_camp"].get("number_of_buildings", 1))
+  
+  return troop_capacity * number_of_camps
+
 def proccess_buildings_data(buildings_data, cv_level):
   structures = {}
+  
+  if "army_camp" in buildings_data:
+    nivel = get_max_level(buildings_data["army_camp"].get("levels", []), cv_level)
+    if nivel:
+      structures["army_camp"] = {
+        "Level": nivel.get("Level"),
+        TC: nivel.get(TC),
+        "Number of Buildings": buildings_data["army_camp"].get("number_of_buildings", "1"),
+        SSC: nivel.get(SSC, "0"),
+        SMC: nivel.get(SMC, "0"),
+        "Max Troops": int(nivel.get(TC, 0)) * int(buildings_data["army_camp"].get("number_of_buildings", "1")),
+        "Max Spells": int(nivel.get(SSC, 0)) * int(buildings_data["army_camp"].get("number_of_buildings", "1")),
+        "Max Siege Machines": int(nivel.get(SMC, 0)) * int(buildings_data["army_camp"].get("number_of_buildings", "1")),
+      }
+  
   for estrutura, dados in buildings_data.items():
     nivel = get_max_level(dados.get("levels", []), cv_level)
     if nivel:
@@ -198,9 +227,11 @@ def get_cv_data(user_message: str) -> dict:
 
   army_result = proccess_army_data(army_data, buildings_data, cv_level)
   estruturas_result = proccess_buildings_data(buildings_data, cv_level)
+  total_army_capacity = calculate_total_army_capacity(buildings_data, cv_level)
 
   result = {
     "cv_level": cv_level,
+    "total_army_capacity": total_army_capacity,
     "tropas": army_result["tropas"],
     SPELLS: army_result[SPELLS],
     HEROS: army_result[HEROS],

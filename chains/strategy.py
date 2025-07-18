@@ -27,16 +27,14 @@ strategy_prompt = ChatPromptTemplate.from_template(
   - Uma **lista de passos objetivos para execução do ataque**
 
   ### Instruções:
-  - A estratégia deve ser viável conforme o nível do CV informado.
   - Considere tropas, heróis e feitiços disponíveis no CV do atacante (se fornecido).
-  - Analise as defesas e o layout da base inimiga para identificar fraquezas.
-  - Os passos do ataque devem estar em formato de lista numerada, com instruções claras e diretas.
+  - Analise as defesas e o layout da base inimiga para identificar informações como muitos muros, facilidades de ataque aéreo ou terrestre.
   - Seja conciso: evite explicações excessivas. Foque no essencial para executar o ataque.
+  - Para montar a lista de tropas considere o tamanho do acampamento conforme o CV do atacante.
 
   ### Regras:
-  - Se a mensagem do usuário estiver em português, **responda obrigatoriamente em português**, incluindo a tradução de termos técnicos se necessário.
   - Não adicione seções extras nem explicações fora do escopo.
-  - Saída esperada: apenas as três listas mencionadas.
+  - Saída esperada: três listas mencionadas cada uma com seu título e breve descrição.
 
   ---
   Base inimiga: {base_description}\n

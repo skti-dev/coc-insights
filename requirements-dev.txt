@@ -1,0 +1,23 @@
+# Dependências principais
+langchain==0.2.16
+langchain-openai==0.1.25
+langchain_community==0.2.16
+pillow==10.4.0
+streamlit==1.38.0
+python-dotenv==1.0.1
+pydantic==2.9.2
+beautifulsoup4==4.12.3
+python-slugify==8.0.4
+sqlalchemy==2.0.35
+
+# Dependências de desenvolvimento
+pytest==8.3.3
+pytest-cov==5.0.0
+black==24.8.0
+isort==5.13.2
+flake8==7.1.1
+mypy==1.11.2
+pre-commit==3.8.0
+
+# Dependências opcionais para produção
+gunicorn==23.0.0

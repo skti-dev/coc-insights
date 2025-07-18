@@ -1,17 +1,37 @@
+"""
+Aplicação principal do Clash of Clans Assistant.
+"""
 import streamlit as st
-from chains.final_chain import final_chain
+import tempfile
+import os
+from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
+from PIL import Image
+
+import sys
+sys.path.append(str(Path(__file__).parent))
+
+from chains.final_chain import final_chain
 from utils.st_utils import setup_sidebar
 from utils.db import load_history_from_db, clear_db_history
-import tempfile
-from PIL import Image
-import os
+from utils.logger import get_logger
+from config.settings import settings
 
 load_dotenv(find_dotenv())
+logger = get_logger(__name__)
 
-os.environ["STREAMLIT_SERVER_MAX_UPLOAD_SIZE"] = os.getenv("STREAMLIT_SERVER_MAX_UPLOAD_SIZE", "2")
+try:
+    settings.validate()
+except ValueError as e:
+    st.error(f"Erro de configuração: {e}")
+    st.stop()
 
-st.set_page_config(page_title="Clash of Clans Assistant", layout="wide", page_icon="🤖")
+os.environ["STREAMLIT_SERVER_MAX_UPLOAD_SIZE"] = str(settings.MAX_UPLOAD_SIZE)
+st.set_page_config(
+    page_title="Clash of Clans Assistant", 
+    layout="wide", 
+    page_icon="🤖"
+)
 
 st.title("🤖 Assistente de Clash of Clans")
 
